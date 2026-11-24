@@ -28,12 +28,12 @@ function badge(text, label) {
 }
 
 const esc = s => (s || '').replace(/\|/g, '\\|');
-const rows = repos.map(r => {
-  const text = readme(r.name);
-  return `| [${r.name}](${r.url}) | ${esc(r.description)} | ${badge(text, 'Build')} | ${badge(text, 'Status')} |`;
-});
+// Sort by status (badge alt text; repos without a status badge last), then by name.
+const rows = repos.map(r => ({ r, status: badge(readme(r.name), 'Status') }))
+  .sort((a, b) => (a.status ? 0 : 1) - (b.status ? 0 : 1) || a.status.localeCompare(b.status) || a.r.name.localeCompare(b.r.name))
+  .map(({ r, status }) => `| [${r.name}](${r.url}) | ${esc(r.description)} | ${status} |`);
 
-const table = [START, '| Repo | What it is | Build | Status |', '|---|---|---|---|', ...rows, END].join('\n');
+const table = [START, '| Repo | What it is | Status |', '|---|---|---|', ...rows, END].join('\n');
 const src = readFileSync(FILE, 'utf8');
 const re = new RegExp(`${START}[\\s\\S]*?${END}`);
 if (!re.test(src)) throw new Error('markers not found in ' + FILE);
