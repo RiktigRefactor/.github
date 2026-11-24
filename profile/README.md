@@ -3,7 +3,7 @@
 *Riktig* (Swedish/Norwegian): correct, right, proper.
 
 RiktigRefactor is a family of refactoring tools that **always preserve behavior**, including in weird edge cases, in untested code, and in very large and complicated code.
-The bar: select an arbitrary chunk in the middle of a 10,000-line method, extract it, and ship to production without worry.
+The bar: select an arbitrary chunk in the middle of a 10,000-line method, extract a new method, and ship to production without worry.
 
 When a tool cannot prove a transformation is safe, it **refuses with a clear reason** instead of guessing.
 A conservative tool that is always right beats a clever one that is right 99.9% of the time.
@@ -24,13 +24,21 @@ A conservative tool that is always right beats a clever one that is right 99.9% 
 
 ## Refactorings
 
-Rename, Extract IIFE, Make method static, Move static member, Move static method to instance method, and more.
-Each language implements the shared specification, so behavior and refusal reasons are consistent across languages.
+### Current
 
-## Status
+Most languages support most of these refactorings:
 
-Early development.
-The goal is to cover every language people care about.
+- Rename
+- Extract Immediately-Executed Function Expression
+- Make method static
+- Move static member
+- Convert static method to instance method
+
+### Future
+
+- Refactorings that make untestable code easier to test
+- Refactorings that make confusing code easier to read and understand
+- Refactorings for carving independent modules out of shared code
 
 ## Get involved
 
