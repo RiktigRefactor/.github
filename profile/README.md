@@ -6,7 +6,6 @@ RiktigRefactor is a family of refactoring tools that **always preserve behavior*
 The bar: select an arbitrary chunk in the middle of a 10,000-line method, extract a new method, and ship to production without worry.
 
 When a tool cannot prove a transformation is safe, it **refuses with a clear reason** instead of guessing.
-A conservative tool that is always right beats a clever one that is right 99.9% of the time.
 
 ## Repositories
 
