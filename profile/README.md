@@ -7,7 +7,9 @@ The bar: select an arbitrary chunk in the middle of a 10,000-line method, extrac
 
 When a tool cannot prove a transformation is safe, it **refuses with a clear reason** instead of guessing.
 
-## Repositories
+## Languages
+
+Each language implements the [RiktigRefactor specification](https://github.com/RiktigRefactor/RiktigRefactor.Spec), which defines the principles, refactoring specs, protocol, and shared test format.
 
 <!-- repos-table:start -->
 | Repo | What it is | Status |
@@ -18,7 +20,6 @@ When a tool cannot prove a transformation is safe, it **refuses with a clear rea
 | [RiktigRefactor.TypeScript](https://github.com/RiktigRefactor/RiktigRefactor.TypeScript) | TypeScript implementation | ![Status: early development](https://img.shields.io/badge/status-early%20development-orange) |
 | [RiktigRefactor.Python](https://github.com/RiktigRefactor/RiktigRefactor.Python) | Python implementation | ![Status: planned](https://img.shields.io/badge/status-planned-lightgrey) |
 | [RiktigRefactor.VSCode](https://github.com/RiktigRefactor/RiktigRefactor.VSCode) | VS Code extension, a thin client over each language server | ![Status: planned](https://img.shields.io/badge/status-planned-lightgrey) |
-| [RiktigRefactor.Spec](https://github.com/RiktigRefactor/RiktigRefactor.Spec) | The cross-language specification: principles, refactoring specs, protocol, shared test format |  |
 <!-- repos-table:end -->
 
 ## Refactorings

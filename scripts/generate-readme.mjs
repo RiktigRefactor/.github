@@ -11,7 +11,7 @@ const END = '<!-- repos-table:end -->';
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8' });
 
 const repos = JSON.parse(gh('repo', 'list', ORG, '--limit', '200', '--no-archived',
-  '--json', 'name,description,url')).filter(r => r.name !== '.github')
+  '--json', 'name,description,url')).filter(r => !['.github', 'RiktigRefactor.Spec'].includes(r.name))
   .sort((a, b) => a.name.localeCompare(b.name));
 
 function readme(name) {
