@@ -1,12 +1,10 @@
-// Regenerates the collapsed build status table at the bottom of profile/README.md.
+// Regenerates profile/build-status.include.md, which mdsnippets pulls into profile/README.md.
 // Usage: node scripts/generate-build-status.mjs   (needs the gh CLI, authenticated)
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 
 const ORG = 'RiktigRefactor';
-const FILE = 'profile/README.md';
-const START = '<!-- build-status:start -->';
-const END = '<!-- build-status:end -->';
+const FILE = 'profile/build-status.include.md';
 
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8' });
 
@@ -35,8 +33,5 @@ const rows = data.map(({ r, wfs }) => {
   return `| [${r.name}](${r.url}) | ${cells.join(' | ')} |`;
 });
 
-const block = [START, '<details>', '<summary>Build status</summary>', '', `| Repo | ${names.map(n => n.replace(/\|/g, '\\|')).join(' | ')} |`, `|---|${names.map(() => '---').join('|')}|`, ...rows, '', '</details>', END].join('\n');
-let src = readFileSync(FILE, 'utf8');
-const re = new RegExp(`${START}[\\s\\S]*?${END}`);
-src = re.test(src) ? src.replace(re, () => block) : src.trimEnd() + '\n\n' + block + '\n';
-writeFileSync(FILE, src);
+const block = [`| Repo | ${names.map(n => n.replace(/\|/g, '\\|')).join(' | ')} |`, `|---|${names.map(() => '---').join('|')}|`, ...rows].join('\n');
+writeFileSync(FILE, block + '\n');

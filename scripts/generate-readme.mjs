@@ -1,12 +1,10 @@
-// Regenerates the repositories table in profile/README.md from the org's repos.
+// Regenerates profile/repos-table.include.md from the org's repos; mdsnippets pulls it into profile/README.md.
 // Usage: node scripts/generate-readme.mjs   (needs the gh CLI, authenticated)
 import { execFileSync } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
+import { writeFileSync } from 'node:fs';
 
 const ORG = 'RiktigRefactor';
-const FILE = 'profile/README.md';
-const START = '<!-- repos-table:start -->';
-const END = '<!-- repos-table:end -->';
+const FILE = 'profile/repos-table.include.md';
 
 const gh = (...args) => execFileSync('gh', args, { encoding: 'utf8' });
 
@@ -33,8 +31,5 @@ const rows = repos.map(r => ({ r, status: badge(readme(r.name), 'Status') }))
   .sort((a, b) => (a.status ? 0 : 1) - (b.status ? 0 : 1) || a.status.localeCompare(b.status) || a.r.name.localeCompare(b.r.name))
   .map(({ r, status }) => `| [${r.name}](${r.url}) | ${esc(r.description)} | ${status} |`);
 
-const table = [START, '| Repo | What it is | Status |', '|---|---|---|', ...rows, END].join('\n');
-const src = readFileSync(FILE, 'utf8');
-const re = new RegExp(`${START}[\\s\\S]*?${END}`);
-if (!re.test(src)) throw new Error('markers not found in ' + FILE);
-writeFileSync(FILE, src.replace(re, () => table));
+const table = ['| Repo | What it is | Status |', '|---|---|---|', ...rows].join('\n');
+writeFileSync(FILE, table + '\n');
