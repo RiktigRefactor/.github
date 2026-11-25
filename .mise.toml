@@ -1,6 +1,16 @@
 [tools]
 dotnet = "11.0.100"
+gh = "2.105.0"
+node = "24.22.3"
 
 [tasks.mdsnippets]
 description = "Update snippets and the table of contents in markdown files"
 run = ["dotnet tool restore", "dotnet mdsnippets"]
+
+[tasks.update-readme]
+description = "Regenerate the repositories table and update markdown files"
+run = ["node scripts/generate-readme.mjs", { task = "mdsnippets" }]
+
+[tasks.update-build-status]
+description = "Regenerate the build status table and update markdown files"
+run = ["node scripts/generate-build-status.mjs", { task = "mdsnippets" }]
