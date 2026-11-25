@@ -34,7 +34,7 @@ Most languages support most of these refactorings:
 - Move static member
 - Convert static method to instance method
 
-### Future
+### Future direction
 
 - Refactorings that make untestable code easier to test
 - Refactorings that make confusing code easier to read and understand
